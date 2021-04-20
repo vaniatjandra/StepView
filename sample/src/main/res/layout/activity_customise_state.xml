@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".main.MainActivity">
+    tools:context="com.meylingtjan.sample.CustomiseStateActivity">
 
-        <com.shuhart.stepview.StepView
+        <com.meylingtjan.stepview.StepView
             android:id="@+id/step_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -20,7 +20,6 @@
             app:sv_typeface="@font/iran_sans_mobile"
             app:sv_stepNumberTextSize="12sp"
             app:sv_steps="@array/steps"
-            app:sv_stepsNumber="5"
             app:sv_doneCircleColor="@color/stepview_circle_done"
             app:sv_doneCircleRadius="12dp"
             app:sv_doneStepLineColor="@color/stepview_line_done"

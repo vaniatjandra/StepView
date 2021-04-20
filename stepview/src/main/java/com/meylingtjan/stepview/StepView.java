@@ -1,4 +1,4 @@
-package com.shuhart.stepview;
+package com.meylingtjan.stepview;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -13,13 +13,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.Dimension;
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.ColorUtils;
-import androidx.core.view.ViewCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -27,8 +20,16 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.shuhart.stepview.animation.AnimatorListener;
-import com.shuhart.stepview.model.Step;
+import androidx.annotation.ColorInt;
+import androidx.annotation.Dimension;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.ViewCompat;
+
+import com.meylingtjan.stepview.animation.AnimatorListener;
+import com.meylingtjan.stepview.model.Step;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

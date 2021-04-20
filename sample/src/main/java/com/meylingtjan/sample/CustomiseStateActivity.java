@@ -1,4 +1,4 @@
-package com.shuhart.stepview.sample.examples.customisestate;
+package com.meylingtjan.sample;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,8 +7,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shuhart.stepview.StepView;
-import com.shuhart.stepview.model.Step;
+import com.meylingtjan.stepview.StepView;
+import com.meylingtjan.stepview.model.Step;
 import com.shuhart.stepview.sample.R;
 
 import java.util.ArrayList;

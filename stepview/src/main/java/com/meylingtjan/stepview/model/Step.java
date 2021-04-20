@@ -1,4 +1,4 @@
-package com.shuhart.stepview.model;
+package com.meylingtjan.stepview.model;
 
 import androidx.annotation.NonNull;
 
