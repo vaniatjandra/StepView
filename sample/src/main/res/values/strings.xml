@@ -1,4 +1,12 @@
 <resources>
+    <string-array name="steps">
+        <item>Step 1</item>
+        <item>Step 2</item>
+        <item>Step 3</item>
+        <item>Step 4</item>
+        <item>Step 5</item>
+    </string-array>
+
     <string name="app_name">StepView</string>
     <string name="btn_next">Next</string>
     <string name="btn_back">Back</string>
@@ -14,6 +22,8 @@
     <string name="main_list_item_scrollview_subtitle">StepView inside ScrollView</string>
     <string name="main_list_item_customise_title">Customise</string>
     <string name="main_list_item_customise_subtitle">Customise StepView</string>
+    <string name="main_list_item_customise_state_title">Customise State</string>
+    <string name="main_list_item_customise_state_subtitle">Customise State StepView</string>
     <string name="main_list_item_rtl_title">RTL</string>
     <string name="main_list_item_rtl_subtitle">An example with Arabic language \n(You need to force RTL or select RTL locale in order to see the effect)</string>
     <string name="main_list_item_delayed_init_title">Delayed init</string>
