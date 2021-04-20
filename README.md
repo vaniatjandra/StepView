@@ -1,100 +1,125 @@
 StepView
 ======================
 
-A simple animated step view for Android. Backward and forward animations is supported.
+A simple animated step view for Android. It displays the name of the step and an icon as index of the step with the state of the step (completed or not completed).
 
 Usage
 -----
 
 1. Add jcenter() to repositories block in your gradle file.
-2. Add `implementation 'com.shuhart.stepview:stepview:1.5.1'` to your dependencies.
+2. Add `implementation 'com.meylingtjan.stepview:Stepview'` to your dependencies.
 3. Add `StepView` into your layouts or view hierarchy.
 
 Supported animations:
 
 Name| Preview
 -------- | ---
-`ANIMATION_LINE`| ![animation_line](/images/animation_line.gif)
-`ANIMATION_CIRCLE`| ![animation_circle](/images/animation_circle.gif)
-`ANIMATION_ALL`| ![animation_all](/images/animation_all.gif)
-`ANIMATION_NONE`| ![animation_none](/images/animation_none.gif)
-`ANIMATION_ALL and all next circles enabled`| ![animation_circles](/images/animation_circles.gif)
-
-In ANIMATION_CIRCLE and ANIMATION_NONE examples the line color remains the same. You can achieve this by specifying:
-``` app:doneStepLineColor="@color/stepview_line_next" ```
+`ANIMATION_ALL`| ![animation_all](/images/ANIMATION_ALL.gif)
+`ANIMATION_ALL and all next circles enabled`| ![animation_circles](/images/ANIMATION_CIRCLES.gif)
 
 Usage:
 
-Specify steps with xml attribute:
+Specify steps and number of steps so circles with step number and step name are shown with xml attribute:
 ```xml
 	app:steps="@array/steps"
 ```
 ```java
-	stepView.setSteps(List<String> steps);
+	private List<Step> steps = new ArrayList<>();
+        private List<String> listStepTitle = new ArrayList<>();
+        
+        listStepTitle = Arrays.asList(getResources().getStringArray(R.array.steps));
+
+        for (int i = 0; i < listStepTitle.size(); i++) {
+            steps.add(new Step(listStepTitle.get(i)));
+        }
+
+        stepView.setListSteps(steps, listStepTitle);
 ```
 
-Or Specify numbers of steps so that only circles with step number are shown:
+Supported customization:
 
-```xml
-	app:stepsNumber="4"
-```
+Name| Preview
+-------- | ---
+`WITHOUT_CUSTUMIZATION`| ![without_cuztomization](/images/WITHOUT_CUSTUMIZATION.jpeg)
+`CUSTOMIZE_STATE`| ![customize_state](/images/CUSTOMIZE_STATE.jpeg)
+`CUSTUMIZE_STATE_4_AND_5`| ![customize_state_4_and_5](/images/CUSTUMIZE_STATE_4_AND_5.jpeg)
+
+Customized the state of step ( complete or not completed ). Default state is NOT_COMPLETED.
+Customized the state to complete with below code:
+
 ```java
-	stepView.setStepsNumber(4);
+        //customise the state for completed step
+        steps.get(2).setState(Step.State.COMPLETED);
+        steps.get(4).setState(Step.State.COMPLETED);
+	
+	
+	//or call it when go to next step
+	if (currentStep < stepView.getStepCount() - 1) {
+	    steps.get(currentStep).setState(Step.State.COMPLETED);
+	    currentStep++;
+	    stepView.go(currentStep, true);
+        }
 ```
-
-<img src="/images/no_text.png"/>
-
 
 Styling:
 
 ```xml
-<com.shuhart.stepview.StepView
-	android:id="@+id/step_view"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="16dp"
-	app:sv_selectedCircleColor="@color/colorAccent"
-	app:sv_selectedTextColor="@color/colorAccent"
-	app:sv_stepLineWidth="1dp"
-	app:sv_stepPadding="4dp"
-    app:sv_nextTextColor="@color/colorAccent"
-	app:sv_nextStepLineColor="@color/colorAccent"
-	app:sv_doneCircleColor="@color/colorAccent"
-	app:sv_doneStepLineColor="@color/colorAccent"
-	app:sv_doneCircleRadius="12dp"
-	app:sv_selectedCircleRadius="12dp"
-	app:sv_selectedStepNumberColor="@color/colorPrimary"
-	app:sv_stepViewStyle="@style/StepView"
-	app:sv_doneStepMarkColor="@color/colorPrimary"
-	app:sv_stepNumberTextSize="12sp"
-	app:sv_animationType="Line"
-  app:sv_typeface="@font/roboto_italic"/>
+<com.meylingtjan.stepview.StepView
+    android:id="@+id/step_view"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:sv_animationType="All"
+    app:sv_stepPadding="12dp"
+    app:sv_typeface="@font/iran_sans_mobile"
+    app:sv_stepNumberTextSize="12sp"
+    app:sv_steps="@array/steps"
+    app:sv_doneCircleColor="@color/stepview_circle_done"
+    app:sv_doneCircleRadius="12dp"
+    app:sv_doneStepLineColor="@color/stepview_line_done"
+    app:sv_doneStepMarkColor="@color/stepview_mark"
+    app:sv_doneTextColor="@color/stepview_text_done"
+    app:sv_nextStepCircleColor="@color/stepview_line_next"
+    app:sv_nextStepCircleEnabled="true"
+    app:sv_nextStepLineColor="@color/stepview_line_next"
+    app:sv_nextTextColor="@color/stepview_text_next"
+    app:sv_selectedCircleColor="@color/stepview_circle_selected"
+    app:sv_selectedCircleRadius="12dp"
+    app:sv_selectedStepNumberColor="@color/stepview_selected_number"
+    app:sv_selectedTextColor="@color/stepview_text_selected"
+    app:sv_stepLineWidth="4dp"
+    app:sv_stepViewStyle="@style/StepView"
+/>
 ```
 
 or instantiate and setup it in runtime with handy state builder:
 
 ```java
     stepView.getState()
-            .selectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
-            .animationType(StepView.ANIMATION_CIRCLE)
-            .selectedCircleColor(ContextCompat.getColor(this, R.color.colorAccent))
-            .selectedCircleRadius(getResources().getDimensionPixelSize(R.dimen.dp14))
-            .selectedStepNumberColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            // You should specify only stepsNumber or steps array of strings.
-            // In case you specify both steps array is chosen.
-            .steps(new ArrayList<String>() {{
-                add("First step");
-                add("Second step");
-                add("Third step");
-            }})
-            // You should specify only steps number or steps array of strings.
-            // In case you specify both steps array is chosen.
-            .stepsNumber(4)
+            .selectedTextColor(ContextCompat.getColor(this, R.color.stepview_text_selected))
+            .animationType(StepView.ANIMATION_ALL)
+            .selectedCircleColor(ContextCompat.getColor(this, R.color.stepview_circle_selected))
+            .selectedCircleRadius(getResources().getDimensionPixelSize(R.dimen.dp12))
+            .selectedStepNumberColor(ContextCompat.getColor(this, R.color.stepview_selected_number))
+	    .selectedTextColor(ContextCompat.getColor(this, R.color.stepview_text_selected))
+
+            .doneCircleColor(ContextCompat.getColor(this, R.color.stepview_circle_done))
+            .doneCircleRadius(getResources().getDimensionPixelSize(R.dimen.dp12))
+            .doneStepLineColor(ContextCompat.getColor(this, R.color.stepview_line_done))
+	    .doneStepMarkColor(ContextCompat.getColor(this, R.color.stepview_mark))
+            .doneTextColor(ContextCompat.getColor(this, R.color.stepview_text_done))
+	    
+	    .nextStepLineColor(ContextCompat.getColor(this, R.color.stepview_line_next))
+            .nextTextColor(ContextCompat.getColor(this, R.color.stepview_text_next))
+	    .nextStepCircleEnabled="true"
+	    
             .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
             .stepLineWidth(getResources().getDimensionPixelSize(R.dimen.dp1))
-            .textSize(getResources().getDimensionPixelSize(R.dimen.sp14))
-            .stepNumberTextSize(getResources().getDimensionPixelSize(R.dimen.sp16))
-            .typeface(ResourcesCompat.getFont(context, R.font.roboto_italic))
+            .stepNumberTextSize(getResources().getDimensionPixelSize(R.dimen.sp12))
+            .typeface(ResourcesCompat.getFont(context, R.font.iran_sans_mobile))
             // other state methods are equal to the corresponding xml attributes
             .commit();
 ```
@@ -106,63 +131,18 @@ Change a step:
     stepView.go(step, true);
 ```
 
-If you want to mark last step with a done mark:
+To mark last step use a done mark:
 ```java
 	stepView.done(true);
 ```
-If you want to allow going back after that, you should unmark the done state:
+To allow going back after set a done mark for last step, please unmark the done state:
 ```java
 	stepView.done(false)
 ```
 
-You can set a step click listener:
-```java
-    stepView.setOnStepClickListener(new StepView.OnStepClickListener() {
-        @Override
-        public void onStepClick(int step) {
-            // 0 is the first step
-        }
-    });
-```
+See the sample for additional details, to see how to set the state to the specific step.
 
-See the sample for additional details.
-
-If you want a custom typeface you should add font files to the resource folder "font" and reference any in xml layout.
-Alternatively you can specify typeface using the state builder in your code. Look into the sample for additional details on that.
-
-You can enable view to draw remained step circles with a specified color.
-In xml:
-```xml
-<com.shuhart.stepview.StepView
-	android:id="@+id/step_view"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="16dp"
-	app:sv_nextStepCircleEnabled="true"
-	app:sv_nextStepCircleColor="@color/gray"/>
-```
-
-In java:
-```java
-    stepView.getState()
-        .nextStepCircleEnabled(isChecked)
-        .nextStepCircleColor(Color.GRAY)
-        .commit();
-```
-
-License
+Credits
 =======
 
-    Copyright 2017 Bogdan Kornev.
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+This repo is a fork of [Shuhart-StepsView](https://github.com/shuhart/StepView).
