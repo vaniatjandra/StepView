@@ -48,7 +48,7 @@ Customized the state of step ( complete or not completed ). Default state is NOT
 Customized the state to complete with below code:
 
 ```java
-        //customise the state for completed step
+        //customizee the state for completed step
         steps.get(2).setState(Step.State.COMPLETED);
         steps.get(4).setState(Step.State.COMPLETED);
 	
