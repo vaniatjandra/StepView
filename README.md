@@ -7,7 +7,7 @@ Usage
 -----
 
 1. Add jcenter() to repositories block in your gradle file.
-2. Add `implementation 'com.meylingtjan.stepview:Stepview'` to your dependencies.
+2. Add `implementation 'com.meylingtjan:Stepview:1.5.2'` to your dependencies.
 3. Add `StepView` into your layouts or view hierarchy.
 
 Supported animations:
@@ -40,9 +40,9 @@ Supported customization:
 
 Name| Preview
 -------- | ---
-`WITHOUT_CUSTUMIZATION`| ![without_cuztomization](/images/WITHOUT_CUSTUMIZATION.jpeg)
+`WITHOUT_CUSTUMIZATION`| ![without_cuztomization](/images/WITHOUT_CUSTOMIZATION.jpeg)
 `CUSTOMIZE_STATE`| ![customize_state](/images/CUSTOMIZE_STATE.jpeg)
-`CUSTUMIZE_STATE_4_AND_5`| ![customize_state_4_and_5](/images/CUSTUMIZE_STATE_4_AND_5.jpeg)
+`CUSTUMIZE_STATE_4_AND_5`| ![customize_state_4_and_5](/images/CUSTOMIZE_STATE_4_AND_5.jpeg)
 
 Customized the state of step ( complete or not completed ). Default state is NOT_COMPLETED.
 Customized the state to complete with below code:
