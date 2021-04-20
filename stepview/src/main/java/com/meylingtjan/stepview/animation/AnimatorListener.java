@@ -1,4 +1,4 @@
-package com.shuhart.stepview.animation;
+package com.meylingtjan.stepview.animation;
 
 import android.animation.Animator;
 
