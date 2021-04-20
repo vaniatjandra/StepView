@@ -145,4 +145,4 @@ See the sample for additional details, to see how to set the state to the specif
 Credits
 =======
 
-This repo is a fork of [Shuhart-StepsView](https://github.com/shuhart/StepView).
+This repo is a fork of [Meyling-StepsView](https://https://github.com/meylingtjan/StepView), which based on [Shuhart-StepsView](https://github.com/shuhart/StepView).
