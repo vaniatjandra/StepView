@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".main.MainActivity">
+
+        <com.shuhart.stepview.StepView
+            android:id="@+id/step_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sv_animationType="All"
+            app:sv_stepPadding="12dp"
+            app:sv_typeface="@font/iran_sans_mobile"
+            app:sv_stepNumberTextSize="12sp"
+            app:sv_steps="@array/steps"
+            app:sv_stepsNumber="5"
+            app:sv_doneCircleColor="@color/stepview_circle_done"
+            app:sv_doneCircleRadius="12dp"
+            app:sv_doneStepLineColor="@color/stepview_line_done"
+            app:sv_doneStepMarkColor="@color/stepview_mark"
+            app:sv_doneTextColor="@color/stepview_text_done"
+            app:sv_nextStepCircleColor="@color/stepview_line_next"
+            app:sv_nextStepCircleEnabled="true"
+            app:sv_nextStepLineColor="@color/stepview_line_next"
+            app:sv_nextTextColor="@color/stepview_text_next"
+            app:sv_selectedCircleColor="@color/stepview_circle_selected"
+            app:sv_selectedCircleRadius="12dp"
+            app:sv_selectedStepNumberColor="@color/stepview_selected_number"
+            app:sv_selectedTextColor="@color/stepview_text_selected"
+            app:sv_stepLineWidth="4dp"
+            app:sv_stepViewStyle="@style/StepView"
+        />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/btn_next"
+            app:layout_constraintLeft_toRightOf="@+id/back"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/step_view" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/btn_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/next"
+            app:layout_constraintTop_toBottomOf="@id/step_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

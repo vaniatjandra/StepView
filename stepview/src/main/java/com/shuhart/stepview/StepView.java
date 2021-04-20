@@ -2,6 +2,7 @@ package com.shuhart.stepview;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -27,6 +28,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.shuhart.stepview.animation.AnimatorListener;
+import com.shuhart.stepview.model.Step;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -70,6 +72,7 @@ public class StepView extends View {
     @DisplayMode
     private int displayMode = DISPLAY_MODE_WITH_TEXT;
     private List<String> steps = new ArrayList<>();
+    private List<Step> listSteps = new ArrayList<>();
     // for display mode DISPLAY_MODE_NO_TEXT
     private int stepsNumber = 0;
     private int currentStep = START_STEP;
@@ -218,6 +221,7 @@ public class StepView extends View {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final boolean superResult = super.onTouchEvent(event);
@@ -252,6 +256,7 @@ public class StepView extends View {
     public void setSteps(List<String> steps) {
         stepsNumber = 0;
         displayMode = DISPLAY_MODE_WITH_TEXT;
+        this.listSteps.clear();
         this.steps.clear();
         this.steps.addAll(steps);
         requestLayout();
@@ -259,9 +264,21 @@ public class StepView extends View {
     }
 
     public void setStepsNumber(int number) {
+        listSteps.clear();
         steps.clear();
         displayMode = DISPLAY_MODE_NO_TEXT;
         stepsNumber = number;
+        requestLayout();
+        go(START_STEP, false);
+    }
+
+    public void setListSteps(List<Step> list, List<String> titles){
+        steps.clear();
+        listSteps.clear();
+        displayMode = DISPLAY_MODE_WITH_TEXT;
+        stepsNumber = list.size();
+        this.steps.addAll(titles);
+        this.listSteps.addAll(list);
         requestLayout();
         go(START_STEP, false);
     }
@@ -276,17 +293,15 @@ public class StepView extends View {
                 if (Math.abs(step - currentStep) > 1) {
                     endAnimation();
                     currentStep = step;
-                    invalidate();
                 } else {
                     nextAnimatedStep = step;
                     state = ANIMATE_STEP_TRANSITION;
                     animate(step);
-                    invalidate();
                 }
             } else {
                 currentStep = step;
-                invalidate();
             }
+            invalidate();
         }
     }
 
@@ -605,12 +620,21 @@ public class StepView extends View {
 
         final int stepSize = getStepCount();
 
-        if (stepSize == 0) {
-            return;
+        if(listSteps.size()!=0)
+        {
+            for (int i = 0; i < listSteps.size(); i++) {
+                Step.State state = listSteps.get(i).getState();
+                drawStep(canvas, i, circlesX[i], circlesY, state);
+            }
         }
+        else {
+            if (stepSize == 0) {
+                return;
+            }
 
-        for (int i = 0; i < stepSize; i++) {
-            drawStep(canvas, i, circlesX[i], circlesY);
+            for (int i = 0; i < stepSize; i++) {
+                drawStep(canvas, i, circlesX[i], circlesY, null);
+            }
         }
 
         for (int i = 0; i < startLinesX.length; i++) {
@@ -624,21 +648,24 @@ public class StepView extends View {
                 int animatedX = (int) (endLinesX[i] - animatedFraction * (endLinesX[i] - startLinesX[i]));
                 drawLine(canvas, startLinesX[i], animatedX, circlesY, true);
                 drawLine(canvas, animatedX, endLinesX[i], circlesY, false);
-            } else if (i < currentStep) {
-                drawLine(canvas, startLinesX[i], endLinesX[i], circlesY, true);
-            } else {
-                drawLine(canvas, startLinesX[i], endLinesX[i], circlesY, false);
-            }
+            } else drawLine(canvas, startLinesX[i], endLinesX[i], circlesY, i < currentStep);
         }
     }
 
-    private void drawStep(Canvas canvas, int step, int circleCenterX, int circleCenterY) {
+    private void drawStep(Canvas canvas, int step, int circleCenterX, int circleCenterY, Step.State stepState) {
         // todo: fix alpha for text when going back/forward
         // todo: don't scale up/down numbers if circles are not scaled
         final String text = displayMode == DISPLAY_MODE_WITH_TEXT ? steps.get(step) : "";
         final boolean isSelected = step == currentStep;
-        final boolean isDone = done ? step <= currentStep : step < currentStep;
+        boolean isDone = done ? step <= currentStep : step < currentStep;
         final String number = String.valueOf(step + 1);
+        final boolean dataFromList = listSteps.size()>0;
+
+        if (stepState != null)
+        {
+            if(isSelected) isDone = false;
+            else isDone = stepState == Step.State.COMPLETED;
+        }
 
         if (isSelected && !isDone) {
             paint.setColor(selectedCircleColor);

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shuhart.stepview.sample.R;
+import com.shuhart.stepview.sample.examples.customisestate.CustomiseStateActivity;
 import com.shuhart.stepview.sample.examples.customise.CustomiseActivity;
 import com.shuhart.stepview.sample.examples.delayed.DelayedInitActivity;
 import com.shuhart.stepview.sample.examples.recyclerview.RecyclerViewExampleActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             add(MainAdapter.Item.RECYCLER_VIEW);
             add(MainAdapter.Item.SCROLL_VIEW);
             add(MainAdapter.Item.CUSTOMISE);
+            add(MainAdapter.Item.CUSTOMISESTATE);
             add(MainAdapter.Item.RTL);
             add(MainAdapter.Item.DELAYED_INIT);
         }};
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case CUSTOMISE:
                         startActivity(new Intent(MainActivity.this, CustomiseActivity.class));
+                        break;
+                    case CUSTOMISESTATE:
+                        startActivity(new Intent(MainActivity.this, CustomiseStateActivity.class));
                         break;
                     case RTL:
                         startActivity(new Intent(MainActivity.this, RTLActivity.class));

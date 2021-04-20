@@ -88,6 +88,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
                     title = titleTextView.getContext().getString(R.string.main_list_item_customise_title);
                     subtitle = subtitleTextView.getContext().getString(R.string.main_list_item_customise_subtitle);
                     break;
+                case CUSTOMISESTATE:
+                    title = titleTextView.getContext().getString(R.string.main_list_item_customise_state_title);
+                    subtitle = subtitleTextView.getContext().getString(R.string.main_list_item_customise_state_subtitle);
+                    break;
                 case RTL:
                     title = titleTextView.getContext().getString(R.string.main_list_item_rtl_title);
                     subtitle = subtitleTextView.getContext().getString(R.string.main_list_item_rtl_subtitle);
@@ -121,6 +125,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         RECYCLER_VIEW,
         SCROLL_VIEW,
         CUSTOMISE,
+        CUSTOMISESTATE,
         RTL,
         DELAYED_INIT
     }
